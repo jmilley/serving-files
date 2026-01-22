@@ -4,16 +4,17 @@ import { fileURLToPath } from 'node:url'
 
 const app = express()
 
-// tell express to server our static files
 const root_dir = path.dirname(fileURLToPath(import.meta.url))
+// console.log(root_dir)
 
-// use 'public' folder for
+// tell express to server our static files
 app.use(express.static(path.join(root_dir, 'public'), { index: false }))
 
 // routes
 app.get('/', (req, res) => res.send('index'))
 
 app.get('/about', (req, res, next) => {
+    // path created: /home/john/node_2026/serving-files/public/about.html
     res.sendFile(path.join(root_dir, 'public', 'about.html'), err => {
         if (err) { next(err) }
         else { console.log('file served') }
